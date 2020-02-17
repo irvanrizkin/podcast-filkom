@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express()
 const port = 100
+const router = require('./router')
 
 //Connect to Database
-db = require('./database')
+require('./database')
 
 app.listen(port, () => {
     console.log("Listen to", port)
 })
 
-app.use(express.json)
+app.use(express.json())
+
+app.use('/', router)

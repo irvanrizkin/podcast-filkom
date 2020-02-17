@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const userRouter = require('./UserRouter')
 
 router.get('/', (req, res) => {
     res.json({
