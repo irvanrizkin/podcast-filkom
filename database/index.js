@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise')
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    database: 'podcastfilkom'
+    database: 'podcast_filkom'
 })
 
 db.query('select 1+1 as result', (err, result) => {
