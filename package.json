@@ -1,0 +1,12 @@
+{
+  "name": "podcast-filkom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/irvanrizkin/podcast-filkom.git",
+  "author": "Irvan Rizki Nugraha <irvanriskinugraha90@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0"
+  }
+}
