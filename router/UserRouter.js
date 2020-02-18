@@ -7,7 +7,10 @@ router.get('/', userController.getAllUser)
 // GET user by id
 router.get('/:id', userController.getUserById)
 
-// POST change user name
+// PUT change user name
 router.put('/:id', userController.updateUserName)
+
+// DELETE delete user
+router.delete('/:id', userController.deleteUser)
 
 module.exports = router

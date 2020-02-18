@@ -1,5 +1,6 @@
 const db = require('../database')
 
+
 const getAllUser = async(req, res, next) => {
     try {
         const [rows] = await db.query('select * from users')
@@ -34,7 +35,7 @@ const updateUserName = (req, res, next) => {
         .then(() => {
             res.json({
                 "success": true,
-                "message": "Change name success"
+                "message": id + "user name changed to" + newName
             })
         })
         .catch(() => {
@@ -44,10 +45,28 @@ const updateUserName = (req, res, next) => {
         })
 }
 
+const deleteUser = async(req, res, next) => {
+    const id = req.params.id
+    const [rows] = await db.query('select * from users where id = ?', [id])
+    if (rows.length > 0) {
+        db.query('delete from users where id = ?', [id])
+        res.json({
+            "success": true,
+            "message": "deleted user id " + id
+        })
+    } else {
+        res.status(404)
+        const error = new Error("User Not Found")
+        next(error)
+    }
+}
+
+
 const userController = {
     getAllUser,
     getUserById,
-    updateUserName
+    updateUserName,
+    deleteUser
 }
 
 module.exports = userController
