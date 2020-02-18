@@ -27,9 +27,27 @@ const getUserById = async(req, res, next) => {
     }
 }
 
+const updateUserName = (req, res, next) => {
+    const id = req.params.id
+    const newName = req.body.newName
+    db.query('update users set name = ? where id ?', [newName, id])
+        .then(() => {
+            res.json({
+                "success": true,
+                "message": "Change name success"
+            })
+        })
+        .catch(() => {
+            res.status(404)
+            const error = new Error("User Not Found")
+            next(error)
+        })
+}
+
 const userController = {
     getAllUser,
-    getUserById
+    getUserById,
+    updateUserName
 }
 
 module.exports = userController
