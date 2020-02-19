@@ -1,3 +1,4 @@
+require('dotenv').config()
 const db = require('../database')
 const bcrypt = require('bcryptjs')
 const validator = require('validator')
