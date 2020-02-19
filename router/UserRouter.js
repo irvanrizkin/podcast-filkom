@@ -14,6 +14,9 @@ router.put('/:id', userController.updateUserName)
 router.delete('/:id', userController.deleteUser)
 
 // POST register user
-router.post("/", userController.registerUser)
+router.post('/register', userController.registerUser)
+
+// POST login user
+router.post('/login', userController.loginUser)
 
 module.exports = router

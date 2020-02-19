@@ -129,12 +129,45 @@ const registerUser = async(req, res, next) => {
     }
 }
 
+const loginUser = async(req, res, next) => {
+    const nim = req.body.nim
+    const [rows] = await db.query('select * from users where nim = ?', [nim])
+    if (rows.length != 0) {
+        const user = rows[0]
+        const password = req.body.password
+        const isVerified = await bcrypt.compare(password, user.password)
+        if (isVerified) {
+            const payload = {
+                "id_user": user.id,
+                "nim": user.nim
+            }
+            const token = await jwt.sign(payload, JWT_KEY)
+            if (token) {
+                res.json({
+                    "success": true,
+                    "token": token
+                })
+            } else {
+                const error = new Error("JWT Error, can't create token")
+                next(error)
+            }
+        } else {
+            const error = new Error("Wrong Password")
+            next(error)
+        }
+    } else {
+        const error = new Error("User Not Registered")
+        next(error)
+    }
+}
+
 const userController = {
     getAllUser,
     getUserById,
     updateUserName,
     deleteUser,
-    registerUser
+    registerUser,
+    loginUser
 }
 
 module.exports = userController
