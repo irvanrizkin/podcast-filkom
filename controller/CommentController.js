@@ -31,9 +31,48 @@ const postCommentOnPost = (req, res, next) => {
         })
 }
 
+const updateComment = (req, res, next) => {
+    const id_comment = req.params.id_comment
+    const content = req.body.content
+    db.query('update comments set content = ? where id = ?', [content, id_comment])
+        .then(() => {
+            res.json({
+                "success": true,
+                "id_comment": id_comment,
+                "content": content,
+                "message": "Comment updated"
+            })
+        })
+        .catch((err) => {
+            res.json({
+                "success": false,
+                "error": err
+            })
+        })
+}
+
+const deleteComment = (req, res, next) => {
+    const id_comment = req.params.id_comment
+    db.query('delete from comments where id = ?', [id_comment])
+        .then(() => {
+            res.json({
+                "success": true,
+                "message": id_comment + " comment deleted"
+            })
+        })
+        .catch((err) => {
+            res.json({
+                "success": false,
+                "error": err
+            })
+        })
+}
+
 const commentController = {
     getCommentByPost,
-    postCommentOnPost
+    postCommentOnPost,
+    updateComment,
+    deleteComment
 }
 
 module.exports = commentController
