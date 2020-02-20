@@ -17,8 +17,29 @@ const getPostById = async(req, res, next) => {
     }
 }
 
+const postAPost = async(req, res, next) => {
+    const id_user = req.user.id_user
+    const content = req.body.content
+    db.query('insert into posts(id_user, content) values(?, ?)', [id_user, content])
+        .then(() => {
+            res.json({
+                "success": true,
+                "id_user": id_user,
+                "post": content,
+                "message": "Post Created"
+            })
+        })
+        .catch((err) => {
+            res.json({
+                "success": false,
+                "error": err
+            })
+        })
+}
+
 const postController = {
-    getPostById
+    getPostById,
+    postAPost
 }
 
 module.exports = postController
