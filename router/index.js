@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const userRouter = require('./UserRouter')
 const postRouter = require('./PostRouter')
+const commentRouter = require('./CommentRouter')
 
 router.get('/', (req, res) => {
     res.json({
@@ -11,6 +12,7 @@ router.get('/', (req, res) => {
 
 router.use('/user', userRouter)
 router.use('/post', postRouter)
+router.use('/comment', commentRouter)
 router.use(notFound)
 router.use(errorHandler)
 
