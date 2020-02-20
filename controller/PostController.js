@@ -57,30 +57,21 @@ const updatePost = (req, res, next) => {
         })
 }
 
-const deletePostById = (req, res, next) => {
+const deletePostById = async(req, res, next) => {
     const id_post = req.params.id_post
     const id_user = req.user.id_user
-    db.query('delete from posts where id = ? and id_user = ?', [id_post, id_user])
-        .then((results) => {
-            if (results.affectedRows = 0) {
-                res.status(404)
-                res.json({
-                    "success": false,
-                    "message": "Post Not Found"
-                })
-            } else {
-                res.json({
-                    "success": true,
-                    "post": id_post + " deleted from user " + id_user
-                })
-            }
+    const [rows] = await db.query('select * from posts where id = ? and id_user = ?', [id_post, id_user])
+    if (rows.length > 0) {
+        db.query('delete from posts where id = ? and id_user = ?', [id_post, id_user])
+        res.json({
+            "success": true,
+            "message": id_post + " post deleted from user " + id_user
         })
-        .catch((err) => {
-            res.json({
-                "success": false,
-                "error": err
-            })
-        })
+    } else {
+        res.status(404)
+        const error = new Error("Post Not Found")
+        next(error)
+    }
 }
 
 

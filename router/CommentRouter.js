@@ -6,12 +6,12 @@ const { checkToken } = require('../middleware')
 router.get('/:id_post', commentController.getCommentByPost)
 
 // POST comment on post
-router.post('/:id_post', commentController.postCommentOnPost)
+router.post('/:id_post', checkToken, commentController.postCommentOnPost)
 
 // PUT update comment
-router.put('/:id_comment', commentController.updateComment)
+router.put('/:id_comment', checkToken, commentController.updateComment)
 
 // DELETE comment
-router.delete('/:id_comment', commentController.deleteComment)
+router.delete('/:id_comment', checkToken, commentController.deleteComment)
 
 module.exports = router

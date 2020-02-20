@@ -9,7 +9,7 @@ router.get('/:id_post', postController.getPostById)
 router.post('/', checkToken, postController.postAPost)
 
 // PUT update post
-router.put('/:id_post', postController.updatePost)
+router.put('/:id_post', checkToken, postController.updatePost)
 
 // DELETE post by id
 router.delete('/:id_post', checkToken, postController.deletePostById)

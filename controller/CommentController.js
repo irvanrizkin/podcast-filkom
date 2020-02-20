@@ -51,21 +51,20 @@ const updateComment = (req, res, next) => {
         })
 }
 
-const deleteComment = (req, res, next) => {
+const deleteComment = async(req, res, next) => {
     const id_comment = req.params.id_comment
-    db.query('delete from comments where id = ?', [id_comment])
-        .then(() => {
-            res.json({
-                "success": true,
-                "message": id_comment + " comment deleted"
-            })
+    const [rows] = await db.query('select * from comments where id = ?', [id_comment])
+    if (rows.length > 0) {
+        db.query('delete from comments where id = ?', [id_comment])
+        res.json({
+            "success": true,
+            "message": "deleted comment id " + id_comment
         })
-        .catch((err) => {
-            res.json({
-                "success": false,
-                "error": err
-            })
-        })
+    } else {
+        res.status(404)
+        const error = new Error("Comment Not Found")
+        next(error)
+    }
 }
 
 const commentController = {
