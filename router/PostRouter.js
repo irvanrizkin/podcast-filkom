@@ -11,4 +11,7 @@ router.post('/', checkToken, postController.postAPost)
 // PUT update post
 router.put('/:id_post', postController.updatePost)
 
+// DELETE post by id
+router.delete('/:id_user/:id_post', postController.deletePostById)
+
 module.exports = router
