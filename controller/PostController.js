@@ -59,7 +59,7 @@ const updatePost = (req, res, next) => {
 
 const deletePostById = (req, res, next) => {
     const id_post = req.params.id_post
-    const id_user = req.params.id_user
+    const id_user = req.user.id_user
     db.query('delete from posts where id = ? and id_user = ?', [id_post, id_user])
         .then((results) => {
             if (results.affectedRows = 0) {
