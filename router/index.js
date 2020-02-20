@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const userRouter = require('./UserRouter')
+const postRouter = require('./PostRouter')
 
 router.get('/', (req, res) => {
     res.json({
@@ -9,6 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.use('/user', userRouter)
+router.use('/post', postRouter)
 router.use(notFound)
 router.use(errorHandler)
 
