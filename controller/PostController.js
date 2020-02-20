@@ -37,9 +37,30 @@ const postAPost = async(req, res, next) => {
         })
 }
 
+const updatePost = (req, res, next) => {
+    const id_post = req.params.id_post
+    const content = req.body.content
+    db.query('update posts set content = ? where id = ?', [content, id_post])
+        .then(() => {
+            res.json({
+                "success": true,
+                "id_post": id_post,
+                "content": content,
+                "message": "Post Updated"
+            })
+        })
+        .catch((err) => {
+            res.json({
+                "success": false,
+                "error": err
+            })
+        })
+}
+
 const postController = {
     getPostById,
-    postAPost
+    postAPost,
+    updatePost
 }
 
 module.exports = postController

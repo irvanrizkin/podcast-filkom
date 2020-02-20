@@ -8,4 +8,7 @@ router.get('/:id_post', postController.getPostById)
 // POST post a post
 router.post('/', checkToken, postController.postAPost)
 
+// PUT update post
+router.put('/:id_post', postController.updatePost)
+
 module.exports = router
