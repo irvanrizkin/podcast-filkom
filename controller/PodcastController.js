@@ -28,6 +28,21 @@ const uploadPodcast = async(req, res, next) => {
     }
 }
 
+const showPodcastByPost = async(req, res, next) => {
+    const id_post = req.params.id_post
+    const [rows] = await db.query('select * from podcasts where id_post = ?', [id_post])
+    if (rows.length > 0) {
+        res.json({
+            "success": true,
+            "podcasts": rows
+        })
+    } else {
+        res.status(404)
+        const error = new Error("Podcast Not Found At id_post " + id_post)
+        next(error)
+    }
+}
+
 const deletePodcastById = async(req, res, next) => {
     const id_podcast = req.params.id
     const [rows] = await db.query('select * from podcasts where id = ?', [id_podcast])
@@ -48,7 +63,8 @@ const deletePodcastById = async(req, res, next) => {
 
 const podcastController = {
     uploadPodcast,
-    deletePodcastById
+    deletePodcastById,
+    showPodcastByPost
 }
 
 module.exports = podcastController
