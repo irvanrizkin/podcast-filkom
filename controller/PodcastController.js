@@ -1,0 +1,54 @@
+const db = require('../database')
+const fs = require('fs')
+
+const uploadPodcast = async(req, res, next) => {
+    const file = req.files.podcast
+    const id_post = req.params.id_post
+    const fileAddress = "uploads/podcasts/" + file.name
+    const [rows] = await db.query('select * from podcasts where link = ? limit 1', fileAddress)
+    if (rows.length == 0) {
+        file.mv(fileAddress, function(err, result) {
+            if (err) {
+                res.json({
+                    "success": false,
+                    "message": err
+                })
+            } else {
+                db.query('insert into podcasts(link, id_post) values(?, ?)', [fileAddress, id_post])
+                res.json({
+                    "success": true,
+                    "link": fileAddress,
+                    "message": "Podcast uploaded"
+                })
+            }
+        })
+    } else {
+        const error = new Error("Podcast already exist")
+        next(error)
+    }
+}
+
+const deletePodcastById = async(req, res, next) => {
+    const id_podcast = req.params.id
+    const [rows] = await db.query('select * from podcasts where id = ?', [id_podcast])
+    if (rows.length > 0) {
+        db.query('delete from podcasts where id = ?', [id_podcast])
+        fs.unlinkSync(rows[0].link)
+        res.json({
+            "success": true,
+            "id_podcast": id_podcast,
+            "message": "deleted"
+        })
+    } else {
+        res.status(404)
+        const error = new Error("Podcast Not Found")
+        next(error)
+    }
+}
+
+const podcastController = {
+    uploadPodcast,
+    deletePodcastById
+}
+
+module.exports = podcastController

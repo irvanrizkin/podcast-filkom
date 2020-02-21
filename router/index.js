@@ -3,6 +3,7 @@ const userRouter = require('./UserRouter')
 const postRouter = require('./PostRouter')
 const commentRouter = require('./CommentRouter')
 const imageRouter = require('./ImageRouter')
+const podcastRouter = require('./PodcastRouter')
 
 router.get('/', (req, res) => {
     res.json({
@@ -17,6 +18,7 @@ router.use('/user', userRouter)
 router.use('/post', postRouter)
 router.use('/comment', commentRouter)
 router.use('/image', imageRouter)
+router.use('/podcast', podcastRouter)
 router.use(notFound)
 router.use(errorHandler)
 
