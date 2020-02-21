@@ -2,17 +2,21 @@ const router = require('express').Router()
 const userRouter = require('./UserRouter')
 const postRouter = require('./PostRouter')
 const commentRouter = require('./CommentRouter')
+const imageRouter = require('./ImageRouter')
 
 router.get('/', (req, res) => {
     res.json({
         "success": true,
         "message": "This is homepage"
     })
+    return res.end();
+
 })
 
 router.use('/user', userRouter)
 router.use('/post', postRouter)
 router.use('/comment', commentRouter)
+router.use('/image', imageRouter)
 router.use(notFound)
 router.use(errorHandler)
 
