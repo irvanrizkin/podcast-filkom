@@ -37,24 +37,22 @@ const postAPost = async(req, res, next) => {
         })
 }
 
-const updatePost = (req, res, next) => {
+const updatePost = async(req, res, next) => {
     const id_post = req.params.id_post
     const content = req.body.content
-    db.query('update posts set content = ? where id = ?', [content, id_post])
-        .then(() => {
-            res.json({
-                "success": true,
-                "id_post": id_post,
-                "content": content,
-                "message": "Post Updated"
-            })
+    const [rows] = await db.query('select * from posts where id = ?', [id_post])
+    if (rows.length > 0) {
+        db.query('update posts set content = ? where id = ?', [content, id_post])
+        res.json({
+            "success": true,
+            "content": content,
+            "message": id_post + " id_post updated"
         })
-        .catch((err) => {
-            res.json({
-                "success": false,
-                "error": err
-            })
-        })
+    } else {
+        res.status(404)
+        const error = new Error("Post Not Found")
+        next(error)
+    }
 }
 
 const deletePostById = async(req, res, next) => {
