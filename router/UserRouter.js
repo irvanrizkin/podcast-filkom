@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const userController = require('../controller/UserController')
+const { checkToken } = require('../middleware')
 
 // GET all user
 router.get('/', userController.getAllUser)
@@ -8,10 +9,10 @@ router.get('/', userController.getAllUser)
 router.get('/:id', userController.getUserById)
 
 // PUT change user name
-router.put('/:id', userController.updateUserName)
+router.put('/:id', checkToken, userController.updateUserName)
 
 // DELETE delete user
-router.delete('/:id', userController.deleteUser)
+router.delete('/:id', checkToken, userController.deleteUser)
 
 // POST register user
 router.post('/register', userController.registerUser)
