@@ -31,24 +31,22 @@ const postCommentOnPost = (req, res, next) => {
         })
 }
 
-const updateComment = (req, res, next) => {
+const updateComment = async(req, res, next) => {
     const id_comment = req.params.id_comment
     const content = req.body.content
-    db.query('update comments set content = ? where id = ?', [content, id_comment])
-        .then(() => {
-            res.json({
-                "success": true,
-                "id_comment": id_comment,
-                "content": content,
-                "message": "Comment updated"
-            })
+    const [rows] = await db.query('select * from comments where id = ?', [id_comment])
+    if (rows.length > 0) {
+        db.query('update comments set content = ? where id = ?', [content, id_comment])
+        res.json({
+            "success": true,
+            "content": content,
+            "message": id_comment + " id_comment updated"
         })
-        .catch((err) => {
-            res.json({
-                "success": false,
-                "error": err
-            })
-        })
+    } else {
+        res.status(404)
+        const error = new Error("Comment Not Found")
+        next(error)
+    }
 }
 
 const deleteComment = async(req, res, next) => {
