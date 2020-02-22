@@ -32,21 +32,21 @@ const getUserById = async(req, res, next) => {
     }
 }
 
-const updateUserName = (req, res, next) => {
+const updateUserName = async(req, res, next) => {
     const id = req.params.id
-    const newName = req.body.newName
-    db.query('update users set name = ? where id ?', [newName, id])
-        .then(() => {
-            res.json({
-                "success": true,
-                "message": id + "user name changed to" + newName
-            })
+    const newName = req.body.name
+    const [rows] = await db.query('select * from users where id = ?', [id])
+    if (rows.length > 0) {
+        db.query('update users set name = ? where id = ?', [newName, id])
+        res.json({
+            "success": true,
+            "message": "id_user " + id + " has been updated to " + newName
         })
-        .catch(() => {
-            res.status(404)
-            const error = new Error("User Not Found")
-            next(error)
-        })
+    } else {
+        res.status(404)
+        const error = new Error("User Not Found")
+        next(error)
+    }
 }
 
 const deleteUser = async(req, res, next) => {
