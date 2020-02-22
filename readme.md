@@ -86,10 +86,10 @@ P.S. varchar and text can refer to String
 ***Response: JSON***
 
     200:
-    {
-        "success": true,
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjo3LCJlbWFpbCI6ImlydmFucmlza2ludWdyYWhhOTBAZ21haWwuY29tIiwiaWF0IjoxNTgyMzc1MzQ2fQ.vEgQmQiLTECRcaR-bSCH_OcfEXRIEE6VSKxMcvV0Vkg"
-    }
+        {
+            "success": true,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjo3LCJlbWFpbCI6ImlydmFucmlza2ludWdyYWhhOTBAZ21haWwuY29tIiwiaWF0IjoxNTgyMzc1MzQ2fQ.vEgQmQiLTECRcaR-bSCH_OcfEXRIEE6VSKxMcvV0Vkg"
+        }
 
     406:
         {
@@ -163,7 +163,8 @@ P.S. varchar and text can refer to String
 ### Update User Name (PUT /user/:id)
 ***Request (params): id***
 
-***Request (body): JSON***  
+***Request (body): JSON***
+
     {
 	    "name" : "Irvan Rizki"
     }
@@ -281,6 +282,7 @@ P.S. varchar and text can refer to String
 ***Request (params): id_post***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -315,11 +317,13 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Request (Body): JSON***
+
     {
 	    "content" : "Workshop BCC 2019"
     }
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -358,6 +362,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -397,6 +402,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Request (body): JSON***
+
     {
 	    "content" : "Legenda Hidup"
     }
@@ -443,6 +449,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Request (body): JSON***
+
     {
 	    "content" : "Halo Dunia"
     }
@@ -485,6 +492,7 @@ P.S. varchar and text can refer to String
 ***Request (params): id_post***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -549,6 +557,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -587,6 +596,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -623,6 +633,7 @@ P.S. varchar and text can refer to String
 ***Request (params): id_post***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -653,6 +664,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -691,6 +703,7 @@ P.S. varchar and text can refer to String
 ***Request (headers): (Required) Authorization: bearer <JWT_TOKEN>***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -727,6 +740,7 @@ P.S. varchar and text can refer to String
 ***Request (params): id_post***
 
 ***Response: JSON***
+
     200:
     {
         "success": true,
@@ -751,6 +765,6 @@ P.S. varchar and text can refer to String
 
 ## TBA
 
-### Show Image (Not JSON)
+### Image Testing on HTML
 
-### Podcast Stream
+### Podcast Streaming
