@@ -23,6 +23,7 @@ const uploadImage = async(req, res, next) => {
             }
         })
     } else {
+        res.status(409)
         const error = new Error("Image already exist")
         next(error)
     }

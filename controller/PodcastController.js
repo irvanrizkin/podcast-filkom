@@ -25,6 +25,7 @@ const uploadPodcast = async(req, res, next) => {
             }
         })
     } else {
+        res.status(409)
         const error = new Error("Podcast already exist")
         next(error)
     }
