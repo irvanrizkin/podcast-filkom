@@ -13,7 +13,7 @@ const checkToken = async(req, res, next) => {
                     req.user = payload
                     next()
                 } else {
-                    res.status(403)
+                    res.status(401)
                     const error = new Error("Wrong Token")
                     next(error)
                 }
