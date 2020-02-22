@@ -1,10 +1,12 @@
 const db = require('../database')
 const fs = require('fs')
+const path = require('path')
 
 const uploadPodcast = async(req, res, next) => {
     const file = req.files.podcast
     const id_post = req.params.id_post
-    const fileAddress = "uploads/podcasts/" + file.name
+    const id_user = req.user.id_user
+    const fileAddress = "uploads/podcasts/" + id_user + "_" + id_post + "_" + file.name
     const [rows] = await db.query('select * from podcasts where link = ? limit 1', fileAddress)
     if (rows.length == 0) {
         file.mv(fileAddress, function(err, result) {
@@ -60,6 +62,10 @@ const deletePodcastById = async(req, res, next) => {
         next(error)
     }
 }
+
+// const streamPodcast = (req,res) => {
+//     res.sendFile()
+// }
 
 const podcastController = {
     uploadPodcast,

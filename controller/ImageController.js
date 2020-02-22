@@ -4,7 +4,8 @@ const fs = require('fs')
 const uploadImage = async(req, res, next) => {
     const file = req.files.image
     const id_post = req.params.id_post
-    const fileAddress = "uploads/images/" + file.name
+    const id_user = req.user.id_user
+    const fileAddress = "uploads/images/" + id_user + "_" + id_post + "_" + file.name
     const [rows] = await db.query('select * from images where link = ? limit 1', [fileAddress])
     if (rows.length == 0) {
         file.mv(fileAddress, function(err, result) {
