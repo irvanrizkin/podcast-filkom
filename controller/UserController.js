@@ -66,47 +66,20 @@ const deleteUser = async(req, res, next) => {
 }
 
 const registerUser = async(req, res, next) => {
-    const nim = req.body.nim
+    const email = req.body.email
     const name = req.body.name
-    const nimString = nim.toString()
-    const isNim = nimString.length == 15 && validator.isNumeric(nimString)
-    if (isNim) {
-        const [rows] = await db.query('select * from users where nim = ? limit 1', [nim])
+    const isEmail = validator.isEmail(email)
+    if (isEmail) {
+        const [rows] = await db.query('select * from users where email = ? limit 1', [email])
         if (rows.length == 0) {
-            const angkatan = "20" + nimString.slice(0, 2)
-            var prodi = ""
-            switch (nimString.slice(5, 7)) {
-                case "02":
-                    prodi = "Teknik Informatika"
-                    break;
-                case "03":
-                    prodi = "Teknik Komputer"
-                    break;
-                case "04":
-                    prodi = "Sistem Informasi"
-                    break;
-                case "06":
-                    prodi = "Pendidikan Teknologi Informasi"
-                    break;
-                case "07":
-                    prodi = "Teknologi Informasi"
-                    break;
-                default:
-                    res.status(406)
-                    const error = new Error("Invalid NIM")
-                    next(error)
-                    break;
-            }
             const password = req.body.password
             const hashedPassword = await bcrypt.hash(password, 10)
-            db.query('insert into users(nim, name, password, angkatan, prodi) values(?, ?, ?, ?, ?)', [nim, name, hashedPassword, angkatan, prodi])
+            db.query('insert into users(email, name, password) values(?, ?, ?)', [email, name, hashedPassword])
                 .then(() => {
                     res.json({
                         "success": true,
-                        "nim": nim,
+                        "email": email,
                         "name": name,
-                        "angkatan": angkatan,
-                        "prodi": prodi,
                         "password": hashedPassword,
                         "message": "Register success"
                     })
@@ -119,20 +92,20 @@ const registerUser = async(req, res, next) => {
                     })
                 })
         } else {
-            res.status(406)
-            const error = new Error("NIM already registered")
+            res.status(409)
+            const error = new Error("Email already registered")
             next(error)
         }
     } else {
         res.status(406)
-        const error = new Error("Incorrect NIM")
+        const error = new Error("Incorrect Email")
         next(error)
     }
 }
 
 const loginUser = async(req, res, next) => {
-    const nim = req.body.nim
-    const [rows] = await db.query('select * from users where nim = ?', [nim])
+    const email = req.body.email
+    const [rows] = await db.query('select * from users where email = ?', [email])
     if (rows.length != 0) {
         const user = rows[0]
         const password = req.body.password
@@ -140,7 +113,7 @@ const loginUser = async(req, res, next) => {
         if (isVerified) {
             const payload = {
                 "id_user": user.id,
-                "nim": user.nim
+                "email": user.email
             }
             const token = await jwt.sign(payload, JWT_KEY)
             if (token) {
@@ -149,14 +122,17 @@ const loginUser = async(req, res, next) => {
                     "token": token
                 })
             } else {
+                res.status(502)
                 const error = new Error("JWT Error, can't create token")
                 next(error)
             }
         } else {
+            res.status(406)
             const error = new Error("Wrong Password")
             next(error)
         }
     } else {
+        res.status(404)
         const error = new Error("User Not Registered")
         next(error)
     }
