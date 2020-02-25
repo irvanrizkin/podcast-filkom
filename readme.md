@@ -763,8 +763,32 @@ P.S. varchar and text can refer to String
        "message" : "Internal Server Error"    
     }
 
+### Show Podcast On HTM (GET /podcast/:id/show)
+***Request (params): id***
+
+P.S. Put /podcast/:id/show in URL
+
+### Stream Podcast (GET /podcast/:id/stream)
+***Request (params): id***
+
+P.S. Put /podcast/:id/stream in audio src
+
+***Response JSON***
+
+    404:
+    {
+        "message" : "Podcast Not Found"
+    }
+
+    500:
+    {
+       "message" : "Internal Server Error"    
+    }
+
 ## TBA
 
 ### Image Testing on HTML
 
-### Podcast Streaming
+### Only accept mp3 on podcast
+
+### Only accept jpeg and png on podcast
