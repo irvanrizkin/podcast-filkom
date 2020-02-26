@@ -6,29 +6,36 @@ const uploadImage = async(req, res, next) => {
     const file = req.files.image
     const id_post = req.params.id_post
     const id_user = req.user.id_user
+    const ext = path.extname(file.name)
     const fileAddress = "uploads/images/" + id_user + "_" + id_post + "_" + file.name
     const [postRow] = await db.query('select * from posts where id = ?', [id_post])
     if (postRow.length > 0) {
-        const [rows] = await db.query('select * from images where link = ? limit 1', [fileAddress])
-        if (rows.length == 0) {
-            file.mv(fileAddress, function(err, result) {
-                if (err) {
-                    res.json({
-                        "success": false,
-                        "message": err
-                    })
-                } else {
-                    db.query('insert into images(link, id_post) values(?, ?)', [fileAddress, id_post])
-                    res.json({
-                        "success": true,
-                        "message": "File uploaded",
-                        "link": fileAddress
-                    })
-                }
-            })
+        if (ext.localeCompare('.jpg') == 0 || ext.localeCompare('.jpeg') == 0 || ext.localeCompare('.png') == 0) {
+            const [rows] = await db.query('select * from images where link = ? limit 1', [fileAddress])
+            if (rows.length == 0) {
+                file.mv(fileAddress, function(err, result) {
+                    if (err) {
+                        res.json({
+                            "success": false,
+                            "message": err
+                        })
+                    } else {
+                        db.query('insert into images(link, id_post) values(?, ?)', [fileAddress, id_post])
+                        res.json({
+                            "success": true,
+                            "message": "File uploaded",
+                            "link": fileAddress
+                        })
+                    }
+                })
+            } else {
+                res.status(409)
+                const error = new Error("Image already exist")
+                next(error)
+            }
         } else {
-            res.status(409)
-            const error = new Error("Image already exist")
+            res.status(406)
+            const error = new Error("Not support file type except jpg, jpeg, png")
             next(error)
         }
     } else {
