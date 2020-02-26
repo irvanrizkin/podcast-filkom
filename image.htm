@@ -8,15 +8,18 @@
 
     <script>
         const path = window.location.pathname
-        const link = window.location.hostname + "/"
+        const link = window.location.host
+        console.log(link)
         const id = path.split('/')
+        console.log(id)
         console.log(id[2])
     </script>
 </head>
 
 <body>
-    <img id="image" src="/stream/" style="width: 50%; height: 50%;">
+    <img id="image" src="" style="width: 50%; height: 50%;">
     <script>
+        console.log(id[2] + "/open")
         document.getElementById("image").setAttribute('src', "/image/open/" + id[2]);
         console.log(document.getElementById('image').getAttribute('src'))
     </script>
