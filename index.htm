@@ -5,7 +5,10 @@
 </head>
 <script>
     const path = window.location.pathname
+    const link = window.location.hostname
+    console.log(link)
     const id = path.split('/')
+    console.log(id)
     console.log(id[2])
 </script>
 
@@ -15,7 +18,8 @@
       <source src="" type="audio/mp3">
       </audio>
     <script>
-        document.getElementById("audioPlayer").setAttribute('src', "http://localhost:100/podcast/" + id[2] + "/stream");
+        console.log(id[2] + "/stream")
+        document.getElementById("audioPlayer").setAttribute('src', "/podcast/stream/" + id[2]);
         console.log(document.getElementById('audioPlayer').getAttribute('src'))
     </script>
 

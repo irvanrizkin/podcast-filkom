@@ -19,6 +19,6 @@ router.delete('/:id', checkToken, imageController.deleteImageById)
 router.get('/:id/show', imageController.showImageOnHTM)
 
 // GET show image on src
-router.get('/:id/open', imageController.showImageOnSrc)
+router.get('/open/:id', imageController.showImageOnSrc)
 
 module.exports = router

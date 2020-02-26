@@ -669,7 +669,7 @@ P.S. Put /image/:id/show in URL
 ### Stream Podcast (GET /podcast/:id/stream)
 ***Request (params): id***
 
-P.S. Put /image/:id/open in image src
+P.S. Put /image/open/:id in image src
 
 ***Response JSON***
 
@@ -803,7 +803,7 @@ P.S. Put /podcast/:id/show in URL
 ### Stream Podcast (GET /podcast/:id/stream)
 ***Request (params): id***
 
-P.S. Put /podcast/:id/stream in audio src
+P.S. Put /podcast/stream/:id in audio src
 
 ***Response JSON***
 

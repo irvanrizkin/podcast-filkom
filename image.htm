@@ -8,6 +8,7 @@
 
     <script>
         const path = window.location.pathname
+        const link = window.location.hostname + "/"
         const id = path.split('/')
         console.log(id[2])
     </script>
@@ -16,7 +17,7 @@
 <body>
     <img id="image" src="/stream/" style="width: 50%; height: 50%;">
     <script>
-        document.getElementById("image").setAttribute('src', "http://localhost:100/image/" + id[2] + "/open");
+        document.getElementById("image").setAttribute('src', "/image/open/" + id[2]);
         console.log(document.getElementById('image').getAttribute('src'))
     </script>
 </body>

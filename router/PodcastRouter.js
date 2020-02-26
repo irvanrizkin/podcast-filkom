@@ -19,6 +19,6 @@ router.delete('/:id', checkToken, podcastController.deletePodcastById)
 router.get('/:id/show', podcastController.showPodcastOnHTM)
 
 // Stream Podcast
-router.get('/:id/stream', podcastController.streamPodcast)
+router.get('/stream/:id', podcastController.streamPodcast)
 
 module.exports = router

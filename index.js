@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 100
+const port = 8000
 const router = require('./router')
 
 //Connect to Database
