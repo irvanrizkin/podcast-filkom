@@ -1,5 +1,6 @@
 const db = require('../database')
 const fs = require('fs')
+const path = require('path')
 
 const uploadImage = async(req, res, next) => {
     const file = req.files.image
@@ -70,10 +71,34 @@ const deleteImageById = async(req, res, next) => {
     }
 }
 
+const showImageOnHTM = (req, res) => {
+    res.sendFile(path.join(__dirname, '../', 'image.htm'))
+}
+
+const showImageOnSrc = async(req, res, next) => {
+    const id = req.params.id
+    const [rows] = await db.query('select * from images where id = ?', [id])
+    if (rows.length > 0) {
+        const source = rows[0].link
+        const file = fs.createReadStream(source)
+        const head = {
+
+        }
+        res.writeHead(206, head)
+        file.pipe(res)
+    } else {
+        res.status(404)
+        const error = new Error("Image Not Found")
+        next(error)
+    }
+}
+
 const imageController = {
     uploadImage,
     showImageByPost,
-    deleteImageById
+    deleteImageById,
+    showImageOnHTM,
+    showImageOnSrc
 }
 
 module.exports = imageController

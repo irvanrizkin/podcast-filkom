@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Image</title>
+
+    <script>
+        const path = window.location.pathname
+        const id = path.split('/')
+        console.log(id[2])
+    </script>
+</head>
+
+<body>
+    <img id="image" src="/stream/" style="width: 50%; height: 50%;">
+    <script>
+        document.getElementById("image").setAttribute('src', "http://localhost:100/image/" + id[2] + "/open");
+        console.log(document.getElementById('image').getAttribute('src'))
+    </script>
+</body>
+
+</html>

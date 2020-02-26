@@ -656,6 +656,28 @@ P.S. varchar and text can refer to String
        "message" : "Internal Server Error"    
     }
 
+### Show Podcast On HTM (GET /podcast/:id/show)
+***Request (params): id***
+
+P.S. Put /image/:id/show in URL
+
+### Stream Podcast (GET /podcast/:id/stream)
+***Request (params): id***
+
+P.S. Put /image/:id/open in image src
+
+***Response JSON***
+
+    404:
+    {
+        "message" : "Image Not Found"
+    }
+
+    500:
+    {
+       "message" : "Internal Server Error"    
+    }
+
 ## Podcast (/podcast)
 
 ### Upload Podcast (POST /podcast/upload/:id_post)
