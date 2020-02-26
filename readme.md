@@ -579,6 +579,11 @@ P.S. varchar and text can refer to String
     {
         "message": "Post Not Found"
     }
+
+    406:
+    {
+        "message": "Not support file type except jpg, jpeg, png"
+    }
     
     500:
     {
@@ -707,6 +712,11 @@ P.S. Put /image/:id/open in image src
     404:
     {
         "message": "Post Not Found"
+    }
+
+    406:
+    {
+        "message": "Not support file type except mp3"
     }
     
     500:
