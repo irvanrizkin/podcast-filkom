@@ -12,7 +12,7 @@ const getCommentByPost = async(req, res, next) => {
 
 const postCommentOnPost = async(req, res, next) => {
   const id_post = req.params.id_post
-  const id_user = req.user.id
+  const id_user = req.user.id_user
   const content = req.body.content
   const [rows] = await db.query('select * from posts where id = ?', [id_post])
   if (rows.length > 0) {
